@@ -1,0 +1,49 @@
+import java.util.*;
+public class Solution {
+    public static List<Integer> sortedArray(int[] a, int[] b) {
+        List<Integer> union = new ArrayList<>();
+        int left = 0, right = 0;
+
+        while (left < a.length && right < b.length) {
+            if (a[left] < b[right]) {
+                union.add(a[left]);
+                left++;
+                while (left < a.length && a[left] == a[left - 1]) {
+                    left++;
+                }
+            } else if (a[left] > b[right]) {
+                union.add(b[right]);
+                right++;
+                while (right < b.length && b[right] == b[right - 1]) {
+                    right++;
+                }
+            } else {
+                union.add(a[left]); // or b[right], since they are equal
+                left++;
+                right++;
+                while (left < a.length && a[left] == a[left - 1]) {
+                    left++;
+                }
+                while (right < b.length && b[right] == b[right - 1]) {
+                    right++;
+                }
+            }
+        }
+
+        // Add any remaining elements from both arrays
+        while (left < a.length) {
+            union.add(a[left]);
+            left++;
+            while (left < a.length && a[left] == a[left - 1]) {
+                left++;
+            }
+        }
+        while (right < b.length) {
+            union.add(b[right]);
+            right++;
+            while (right < b.length && b[right] == b[right - 1]) {
+                right++;
+            }
+        }
+
+        return union;
